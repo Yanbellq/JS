@@ -69,8 +69,46 @@ function isNumberInRange(number, range) {
 
 let range = { min: result.min, max: result.max };
 
+console.log(isNumberInRange(0, range));
+console.log(isNumberInRange(3, range));
+console.log(isNumberInRange(5, range));
+console.log(isNumberInRange(6, range));
+
+
+// part 2
+console.log("---------------------");
+
 console.log(!isNumberInRange(0, range));
 console.log(!!!!isNumberInRange(3, range));
 console.log(!!isNumberInRange(5, range));
 console.log(!!!isNumberInRange(6, range));
 
+// Task - 3
+console.log("\n\nTask - 3: \n\n");
+
+document.getElementById('myForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const mark = document.getElementById('mark').value;
+    const month = document.getElementById('month').value.toLowerCase();
+
+    let grade = (mark >= 1 && mark <= 3) ? `Mark: ${mark} - Незадовільно` :
+                (mark >= 4 && mark <= 6) ? `Mark: ${mark} - Задовільно` :
+                (mark >= 7 && mark <= 9) ? `Mark: ${mark} - Добре` :
+                (mark >= 10 && mark <= 12) ? `Mark: ${mark} - Відмінно` :
+                `Mark: ${mark} - Неправильна оцінка`;
+    
+    
+    if (month == 'december' || month == 'january' || month == 'february') {
+        console.log(`${grade}, Month: ${month} - Winter`);
+    } else if (month == 'march' || month == 'april' || month == 'may') {
+        console.log(`${grade}, Month: ${month} - Spring`);
+    } else if (month == 'june' || month == 'july' || month == 'august') {
+        console.log(`${grade}, Month: ${month} - Summer`);
+    } else if (month == 'september' || month == 'october' || month == 'november') {
+        console.log(`${grade}, Month: ${month} - Fall`);
+    } else {
+        console.log(`${grade}, Month: ${month} - Unknown`);
+    }
+
+
+});
