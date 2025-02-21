@@ -1,8 +1,8 @@
-// console.log("Hello World");
 
 // TASK - 1
 
 // part 1
+console.log("Task - 1: \n\n");
 function getMinMax(array) {
     if (array.length === 0) {
         return { min: null, max: null };
@@ -44,7 +44,7 @@ function compareObjects(obj1, obj2) {
         return false;
     }
 
-    for (let key of keys1) {
+    for (let key of keys1) { 
         if (obj1[key] !== obj2[key]) {
             return false;
         }
@@ -52,10 +52,25 @@ function compareObjects(obj1, obj2) {
 
     return true;
 }
-
 let obj1 = { min: 1, max: 5 };
 let obj2 = { min: 1, max: 5 };
 let obj3 = { min: 2, max: 4 };
 
 console.log(compareObjects(obj1, obj2)); 
 console.log(compareObjects(obj1, obj3));
+
+
+// Task - 2
+// part 1
+console.log("\n\nTask - 2: \n\n");
+function isNumberInRange(number, range) {
+    return number >= range.min && number <= range.max;
+}
+
+let range = { min: result.min, max: result.max };
+
+console.log(!isNumberInRange(0, range));
+console.log(!!!!isNumberInRange(3, range));
+console.log(!!isNumberInRange(5, range));
+console.log(!!!isNumberInRange(6, range));
+
