@@ -123,6 +123,8 @@ const sum = (arr) => {
 let array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 console.log(`Sum of the array: ${sum(array)}`);
 
+
+// Task - 5
 const countVowels = str =>
 {
     console.log("\n\nTask - 5\n\n");
@@ -130,4 +132,13 @@ const countVowels = str =>
     const vowels = "aeiouаеєиіїоуюя";
     let result = [...str.toLowerCase()].filter(char => vowels.includes(char)).length; 
     console.log(`Введений вами рядок: '${str}', \nКількість в ньому голосних = ${result}`);
+}
+
+// Task - 6
+const power = (base, exponent) =>
+{
+    console.log("\n\nTask - 6\n\n");
+
+    let result = Math.pow(base, exponent);
+    console.log(`Число ${base} у степені ${exponent} = ${result}`);
 }
