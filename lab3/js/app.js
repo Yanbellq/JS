@@ -7,7 +7,7 @@ while (n < 50)
     n++;
 }
 
-console.log(n);
+console.log(`Sum of the numbers: ${n}`);
 
 // Task - 2
 console.log("\n\nTask - 2\n\n");
@@ -113,3 +113,12 @@ const showMonth = () => {
     }
 }
 
+// Task - 4
+console.log("\n\nTask - 4\n\n");
+
+const sum = (arr) => {
+    return arr.reduce((sum, num) => num % 2 === 0 ? sum + num : sum, 0)
+}
+
+let array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+console.log(`Sum of the array: ${sum(array)}`);
