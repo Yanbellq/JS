@@ -10,8 +10,8 @@ while (n < 50)
 console.log(`Sum of the numbers: ${n}`);
 
 // Task - 2
-console.log("\n\nTask - 2\n\n");
 document.getElementById('form').addEventListener('submit', function (event) {
+    console.log("\n\nTask - 2\n\n");
     event.preventDefault();
     let num = document.getElementById('num').value;
 
@@ -107,7 +107,7 @@ const showMonth = () => {
         }
         default:
         {
-            console.log("Enter the correct number");
+            console.log("Please, enter the correct number");
             break;
         }
     }
@@ -122,3 +122,12 @@ const sum = (arr) => {
 
 let array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 console.log(`Sum of the array: ${sum(array)}`);
+
+const countVowels = str =>
+{
+    console.log("\n\nTask - 5\n\n");
+    
+    const vowels = "aeiouаеєиіїоуюя";
+    let result = [...str.toLowerCase()].filter(char => vowels.includes(char)).length; 
+    console.log(`Введений вами рядок: '${str}', \nКількість в ньому голосних = ${result}`);
+}
