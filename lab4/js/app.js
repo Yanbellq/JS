@@ -100,7 +100,24 @@ task4();
 // --------------------------------------------------------------------------------------------
 
 const task5 = () => {
-    
+    let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    console.log(numbers.toString().concat(' - Початковий масив'));
+
+    let squaredNumbers = numbers.map(num => num * num);
+    console.log(squaredNumbers.toString().concat(' - Квадрати чисел'));
+
+    let evenNumbers = squaredNumbers.filter(num => num % 2 === 0);
+    console.log(evenNumbers.toString().concat(' - Парні числа'));
+
+    let sumOfNumbers = evenNumbers.reduce((acc, num) => acc + num, 0);
+    console.log(sumOfNumbers.toString().concat(' - Сума парних чисел'));
+
+    let additionalNumbers = [11, 12, 13, 14, 15];
+    numbers = numbers.concat(additionalNumbers);
+    console.log(numbers.toString().concat(' - Оновлений масив з додатковими числами'));
+
+    numbers.splice(0, 3);
+    console.log(numbers.toString().concat(' - Масив без перших трьох елементів'));
 }
 
 console.log('\nTask - 5\n\n');
