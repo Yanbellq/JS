@@ -187,3 +187,18 @@ console.log(library.getBooksStatistics());
 
 // --------------------------------------------------------------------------------------------
 
+const task7 = () => {
+    let student = {
+        name: "Іван",
+        age: 20,
+        course: 3
+    };
+
+    student.subjects = ["Математика", "Фізика", "Інформатика"];
+    delete student.age;
+
+    console.log(`${student.name}, ${student.age}, ${student.course}\n${student.subjects}`);
+};
+
+console.log('\nTask - 7\n\n');
+task7();
