@@ -75,9 +75,33 @@ const task4 = () => {
         { name: "Максим", age: 19, course: 2 },
         { name: "Ольга", age: 17, course: 1 },
         { name: "Владислав", age: 20, course: 3 },
-        { name: "Данило", age: 19, course: 2 }
-    ]
+        { name: "Данило", age: 19, course: 2 },
+        { name: "Олексій", age: 21, course: 4 }
+    ];
+
+    console.log(students.map(e => e.name).toString().concat(' - Початковий масив'));
+
+    students = students.filter(student => student.name !== "Олексій");
+    console.log(students.map(e => e.name).toString().concat(' - Без Олексія'));
+
+    students.push({ name: "Олексій", age: 21, course: 4 });
+    console.log(students.map(e => e.name).toString().concat(' - Оновлений масив'));
+
+    students.sort((a, b) => b.age - a.age);
+    console.log(students.map(e => e.name).toString().concat(' - Відсортовані за віком від найстаршого до наймолодшого'));
+
+    let filtOfThriedCourse = students.filter(student => student.course === 3);
+    console.log(filtOfThriedCourse.map(e => e.name).toString().concat(' - Студенти третього курсу'));
 }
 
 console.log('\nTask - 4\n\n');
 task4();
+
+// --------------------------------------------------------------------------------------------
+
+const task5 = () => {
+    
+}
+
+console.log('\nTask - 5\n\n');
+task5();
