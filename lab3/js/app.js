@@ -41,7 +41,7 @@ document.getElementById('form').addEventListener('submit', function (event) {
 const showMonth = () => {
     console.log("\n\nTask - 3\n\n");
     
-    let num = parseInt(prompt("Введіть число (1 - 12):"));
+    let num = +(prompt("Введіть число (1 - 12):"));
 
     switch (num)
     {
@@ -117,7 +117,13 @@ const showMonth = () => {
 console.log("\n\nTask - 4\n\n");
 
 const sum = (arr) => {
-    return arr.reduce((sum, num) => num % 2 === 0 ? sum + num : sum, 0)
+    let sum = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] % 2 === 0) {
+            sum += arr[i];
+        }
+    }
+    return sum;
 }
 
 let array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
@@ -130,15 +136,38 @@ const countVowels = str =>
     console.log("\n\nTask - 5\n\n");
     
     const vowels = "aeiouаеєиіїоуюя";
-    let result = [...str.toLowerCase()].filter(char => vowels.includes(char)).length; 
-    console.log(`Введений вами рядок: '${str}', \nКількість в ньому голосних = ${result}`);
+    let result = 0;
+    let lowerStr = str.toLowerCase();
+    for (let i = 0; i < lowerStr.length; i++) {
+        for (let j = 0; j < vowels.length; j++) {
+            if (lowerStr[i] === vowels[j]) {
+                result++;
+                break;
+            }
+        }
+    }
+    return result;
 }
+document.getElementById('task5').addEventListener('click', function (event) { 
+    let str = prompt("Введіть рядок:");
+    let result = countVowels(str);
+    console.log(`Введений вами рядок: '${str}', \nКількість в ньому голосних = ${result}`);
+});
 
 // Task - 6
-const power = (base, exponent) =>
-{
+const power = (base, exponent) => {
     console.log("\n\nTask - 6\n\n");
 
-    let result = Math.pow(base, exponent);
-    console.log(`Число ${base} у степені ${exponent} = ${result}`);
+    let result = 1;
+    for (let i = 0; i < exponent; i++) {
+        result *= base;
+    }
+
+    return result;
 }
+document.getElementById("task6").addEventListener('click', function (event) {
+    let base = +(prompt("Введіть число:"));
+    let exponent = +(prompt("Введіть степінь:"));
+    let result = power(base, exponent);
+    console.log(`Число ${base} у степені ${exponent} = ${result}`);
+});

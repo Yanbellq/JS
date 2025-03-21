@@ -12,7 +12,7 @@ const task1 = (array) => {
     array.sort().reverse();
     console.log(array.toString().concat(' - У зворотньому алфавітному порядку'));
 
-    console.log(array.indexOf('яблуко').toString().concat(' - Індекс яблука'));
+    console.log(array.indexOf("яблуко").toString().concat(' - Індекс яблука'));
 }
 
 console.log('Task - 1\n\n');
