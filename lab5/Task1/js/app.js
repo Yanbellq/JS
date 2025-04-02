@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             bulbImage.classList.remove('on');
-        }, 1000); // 5 minutes
+        }, 3000);
     }
 
     resetTimeout();
