@@ -9,6 +9,8 @@ function startClock() {
         clockElement.textContent = `${hours}:${minutes}:${seconds}`;
     }, 1000);
 }
+startClock();
+
 
 // Таймер зворотного відліку
 function startCountdown() {
@@ -55,30 +57,26 @@ function displayCalendar() {
     const [month, year] = input.split('.');
     const date = new Date(year, month - 1);
     const daysInMonth = new Date(year, month, 0).getDate();
-    const firstDayOfMonth = (new Date(year, month - 1, 1).getDay() + 6) % 7; // Зміщення для початку з понеділка
+    const firstDayOfMonth = (new Date(year, month - 1, 1).getDay() + 6) % 7;
 
-    // Назви днів тижня
+    
     const daysOfWeek = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Нд'];
 
-    // Початок таблиці
     let calendarHTML = `<h3>${date.toLocaleString('default', { month: 'long' })} ${year}</h3>`;
     calendarHTML += '<table>';
     calendarHTML += '<tr>' + daysOfWeek.map(day => `<th>${day}</th>`).join('') + '</tr><tr>';
 
-    // Додати порожні клітинки перед першим днем місяця
     for (let i = 0; i < firstDayOfMonth; i++) {
         calendarHTML += '<td></td>';
     }
 
-    // Додати дні місяця
     for (let day = 1; day <= daysInMonth; day++) {
         calendarHTML += `<td>${day}</td>`;
         if ((firstDayOfMonth + day) % 7 === 0) {
-            calendarHTML += '</tr><tr>'; // Почати новий рядок після неділі
+            calendarHTML += '</tr><tr>';
         }
     }
 
-    // Закрити останній рядок і таблицю
     calendarHTML += '</tr></table>';
     display.innerHTML = calendarHTML;
 }
@@ -114,6 +112,3 @@ function calculateBirthday() {
 }
 
 document.getElementById('calculate-birthday').addEventListener('click', calculateBirthday);
-
-// Запуск цифрового годинника
-startClock();
