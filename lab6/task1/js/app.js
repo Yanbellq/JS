@@ -26,8 +26,8 @@ const showToast = (message) => {
 };
 
 const updateTotalCost = () => {
-    const total = products.reduce((sum, p) => sum + p.price, 0);
-    totalCost.textContent = `Загальна вартість: ${total} грн`;
+    const total = products.reduce((sum, p) => sum + (p.price || 0), 0);
+    totalCost.textContent = `Загальна вартість: ${total.toFixed(2)} грн`;
 };
 
 const renderProducts = () => {
@@ -49,13 +49,17 @@ const renderProducts = () => {
         const card = document.createElement('div');
         card.className = 'product-card';
         card.innerHTML = `
-            <p><strong>ID:</strong> ${p.id}</p>
-            <p><strong>Назва:</strong> ${p.name}</p>
-            <p><strong>Ціна:</strong> ${p.price} грн</p>
-            <p><strong>Категорія:</strong> ${p.category}</p>
-            <img src="${p.image}" alt="${p.name}">
-            <button onclick="deleteProduct(${p.id})">Видалити</button>
-            <button onclick="editProduct(${p.id})">Редагувати</button>
+            <div class="product-info">
+                <p><strong>ID:</strong> ${p.id}</p>
+                <p><strong>Назва:</strong> ${p.name}</p>
+                <p><strong>Ціна:</strong> ${p.price} грн</p>
+                <p><strong>Категорія:</strong> ${p.category}</p>
+                <img src="${p.image}" alt="${p.name}">
+            </div>
+            <div class="product-actions">
+                <button class="resetBtn" onclick="deleteProduct(${p.id})">Видалити</button>
+                <button onclick="editProduct(${p.id})">Редагувати</button>
+            </div>
         `;
         productList.appendChild(card);
     });
@@ -63,7 +67,7 @@ const renderProducts = () => {
     updateEmptyMessage();
     updateTotalCost();
     renderFilters();
-    renderSorting(); // обов’язково
+    renderSorting();
 };
 
 
@@ -75,8 +79,9 @@ const deleteProduct = (id) => {
         setTimeout(() => {
             products = products.filter(p => p.id !== id);
             renderProducts();
+            renderFilters(); // Оновлення фільтрів
             showToast(`Товар ID ${id} видалено`);
-        }, 300); // збігається з transition
+        }, 300);
     }
 };
 
@@ -96,15 +101,21 @@ cancelBtn.addEventListener('click', () => {
 form.addEventListener('submit', (e) => {
     e.preventDefault();
     const formData = new FormData(form);
+    const price = parseFloat(formData.get('price'));
+
+    if (isNaN(price) || price <= 0) {
+        showToast('Ціна повинна бути числом більше 0');
+        return;
+    }
+
     const data = {
         name: formData.get('name'),
-        price: parseFloat(formData.get('price')),
+        price,
         category: formData.get('category'),
         image: formData.get('image'),
     };
 
     if (editMode && editingProductId !== null) {
-        // Редагування товару
         products = products.map(p =>
             p.id === editingProductId ? {
                 ...p,
@@ -112,9 +123,8 @@ form.addEventListener('submit', (e) => {
                 updatedAt: new Date()
             } : p
         );
-        showToast(`Товар ID ${editingProductId} оновлено: ${data.name}`);
+        showToast(`Товар ID ${editingProductId} ${data.name} оновлено`);
     } else {
-        // Додавання нового товару
         const newProduct = {
             id: nextId++,
             ...data,
@@ -154,6 +164,7 @@ const renderFilters = () => {
 
     categories.forEach(cat => {
         const btn = document.createElement('button');
+        btn.classList.toggle('filterBtn');
         btn.textContent = cat;
         btn.onclick = () => {
             activeFilter = cat;
@@ -164,6 +175,7 @@ const renderFilters = () => {
 
     if (categories.length > 0) {
         const resetBtn = document.createElement('button');
+        resetBtn.classList.toggle('resetBtn');
         resetBtn.textContent = 'Скинути фільтр';
         resetBtn.onclick = () => {
             activeFilter = null;
@@ -185,6 +197,7 @@ const renderSorting = () => {
 
     buttons.forEach(({ label, value }) => {
         const btn = document.createElement('button');
+        btn.classList.toggle('sortBtn');
         btn.textContent = label;
         btn.onclick = () => {
             activeSort = value;
@@ -194,6 +207,7 @@ const renderSorting = () => {
     });
 
     const resetBtn = document.createElement('button');
+    resetBtn.classList.toggle('resetBtn');
     resetBtn.textContent = 'Скинути сортування';
     resetBtn.onclick = () => {
         activeSort = null;
