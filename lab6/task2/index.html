@@ -6,19 +6,19 @@
         <title>Список завдань</title>
         <link rel="stylesheet" href="./css/style.css">
     </head>
-
     <body>
         <header>
             <h1>Список завдань</h1>
         </header>
         <main>
-            <div class="add-toDo">
+            <form id="taskForm" class="add-toDo">
                 <input type="text" id="taskInput" placeholder="Додати нове завдання..." required>
-                <button id="addTaskButton">Додати</button>
-            </div>
-            <div class="sort">
+                <button type="submit">Додати</button>
+            </form>
+            <div class="sorting">
                 <button id="sortByDate">Сортувати за датою</button>
                 <button id="sortByStatus">Сортувати за станом</button>
+                <button id="sortByUpdate">Сортувати за оновленням</button>
             </div>
             <hr>
             <ul id="taskList"></ul>

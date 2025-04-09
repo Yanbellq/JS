@@ -88,3 +88,23 @@ button:hover {
 #taskList li .deleteButton {
     text-decoration: none;
 }
+
+.sorting {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.editTaskInput {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    input[type="text"] {
+        width: 60%;
+    }
+}
