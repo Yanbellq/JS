@@ -1,5 +1,3 @@
-'use strict';
-
 let level = 1;
 let timeToDuel = 700;
 let readyToDuel = false;
@@ -79,7 +77,7 @@ function nextLevel() {
         gamePanels.style.display = 'none';
         winScreen.style.display = 'block';
 
-       
+
         const finalScore = document.querySelector('.score-panel__score_num').textContent;
         const winTitle = document.querySelector('.win-screen__title');
         winTitle.innerHTML = `You have won the game!<br>Final Score: <span style="color: #e20f0f;">${finalScore}</span>`;
