@@ -310,7 +310,7 @@ function resetGame() {
     }
 }
 
-function goHome() { 
+function goHome() {
     if (confirm('Вийти на головну сторінку?')) {
         document.querySelector('.settings-panel').style.display = 'block';
         statsPanel.style.display = 'none';
