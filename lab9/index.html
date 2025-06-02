@@ -18,7 +18,7 @@
         <!-- Форма авторизації -->
         <div id="login-form" class="form-container active">
             <h2>Авторизація</h2>
-            <form id="login">
+            <form id="login" novalidate>
                 <div class="form-group">
                     <label for="login-username">Username:</label>
                     <input type="text" id="login-username" name="username" required>
@@ -54,7 +54,7 @@
         <!-- Форма реєстрації -->
         <div id="register-form" class="form-container">
             <h2>Реєстрація</h2>
-            <form id="register">
+            <form id="register" novalidate>
                 <div class="form-group">
                     <label for="first-name">First Name:</label>
                     <input type="text" id="first-name" name="firstName" required>
@@ -93,7 +93,7 @@
 
                 <div class="form-group">
                     <label for="phone">Phone:</label>
-                    <input type="tel" id="phone" name="phone" required>
+                    <input type="text" id="phone" name="phone" value="+380" required>
                     <div class="error" id="phone-error"></div>
                 </div>
 

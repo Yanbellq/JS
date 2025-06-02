@@ -22,22 +22,47 @@ document.addEventListener('DOMContentLoaded', function () {
                 citySelect.appendChild(option);
             });
         }
+        validateField(this, validateCountry);
     });
 
     // Обробники подій для форм
     document.getElementById('login').addEventListener('submit', handleLoginSubmit);
     document.getElementById('register').addEventListener('submit', handleRegisterSubmit);
 
-    // Валідація полів при втраті фокусу
-    setupFieldValidation('login-username', validateUsername);
-    setupFieldValidation('login-password', validatePassword);
-    setupFieldValidation('first-name', validateName);
-    setupFieldValidation('last-name', validateName);
-    setupFieldValidation('email', validateEmail);
-    setupFieldValidation('password', validatePassword);
-    setupFieldValidation('confirm-password', validateConfirmPassword);
-    setupFieldValidation('phone', validatePhone);
-    setupFieldValidation('birth-date', validateBirthDate);
+    // Масив усіх полів для перевірки з валідаторами
+    const fieldsToValidate = [
+        { id: 'login-username', validator: validateUsername },
+        { id: 'login-password', validator: validatePassword },
+        { id: 'first-name', validator: validateName },
+        { id: 'last-name', validator: validateName },
+        { id: 'email', validator: validateEmail },
+        { id: 'password', validator: validatePassword },
+        { id: 'confirm-password', validator: validateConfirmPassword },
+        { id: 'phone', validator: validatePhone },
+        { id: 'birth-date', validator: validateBirthDate },
+        { id: 'country', validator: validateCountry },
+        { id: 'city', validator: validateCity }
+    ];
+
+    // Додаємо динамічну перевірку для всіх полів
+    fieldsToValidate.forEach(fieldObj => {
+        const field = document.getElementById(fieldObj.id);
+        if (!field) return;
+        // Для input/textarea - перевірка на input, для select - на change
+        if (field.tagName === 'SELECT') {
+            field.addEventListener('change', function () {
+                validateField(this, fieldObj.validator);
+            });
+        } else {
+            field.addEventListener('input', function () {
+                validateField(this, fieldObj.validator);
+            });
+            // Також перевірка при втраті фокусу (для показу помилки якщо поле залишили порожнім)
+            field.addEventListener('blur', function () {
+                validateField(this, fieldObj.validator);
+            });
+        }
+    });
 
     // Радіо кнопки для статі
     document.querySelectorAll('input[name="sex"]').forEach(radio => {
@@ -49,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Країна та місто
+    // Динамічна перевірка для країни та міста (на випадок якщо вони не потрапили в масив)
     document.getElementById('country').addEventListener('change', function () {
         validateField(this, validateCountry);
     });
@@ -82,14 +107,6 @@ function togglePassword(fieldId) {
     field.type = field.type === 'password' ? 'text' : 'password';
 }
 
-// Налаштування валідації поля при втраті фокусу
-function setupFieldValidation(fieldId, validator) {
-    const field = document.getElementById(fieldId);
-    field.addEventListener('blur', function () {
-        validateField(this, validator);
-    });
-}
-
 // Валідація поля
 function validateField(field, validator) {
     const errorElement = document.getElementById(`${field.id}-error`);
@@ -98,12 +115,14 @@ function validateField(field, validator) {
     if (isValid) {
         field.classList.add('valid');
         field.classList.remove('invalid');
-        errorElement.style.display = 'none';
+        if (errorElement) errorElement.style.display = 'none';
     } else {
         field.classList.add('invalid');
         field.classList.remove('valid');
-        errorElement.textContent = message;
-        errorElement.style.display = 'block';
+        if (errorElement) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
     }
 
     return isValid;
@@ -182,7 +201,7 @@ function validateBirthDate(value) {
         return { isValid: false, message: 'Date of birth cannot be in the future' };
     }
 
-    const age = today.getFullYear() - birthDate.getFullYear();
+    let age = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
 
     if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
@@ -257,17 +276,28 @@ function handleRegisterSubmit(e) {
     const form = e.target;
     let isValid = true;
 
-    // Валідація всіх полів
-    isValid = validateField(document.getElementById('first-name'), validateName) && isValid;
-    isValid = validateField(document.getElementById('last-name'), validateName) && isValid;
-    isValid = validateField(document.getElementById('email'), validateEmail) && isValid;
-    isValid = validateField(document.getElementById('password'), validatePassword) && isValid;
-    isValid = validateField(document.getElementById('confirm-password'), validateConfirmPassword) && isValid;
-    isValid = validateField(document.getElementById('phone'), validatePhone) && isValid;
-    isValid = validateField(document.getElementById('birth-date'), validateBirthDate) && isValid;
-    isValid = validateSex() && isValid;
-    isValid = validateField(document.getElementById('country'), validateCountry) && isValid;
-    isValid = validateField(document.getElementById('city'), validateCity) && isValid;
+    // Масив усіх полів для перевірки
+    const fieldsToValidate = [
+        { id: 'first-name', validator: validateName },
+        { id: 'last-name', validator: validateName },
+        { id: 'email', validator: validateEmail },
+        { id: 'password', validator: validatePassword },
+        { id: 'confirm-password', validator: validateConfirmPassword },
+        { id: 'phone', validator: validatePhone },
+        { id: 'birth-date', validator: validateBirthDate },
+        { id: 'country', validator: validateCountry },
+        { id: 'city', validator: validateCity }
+    ];
+
+    // Перевіряємо всі поля і підкреслюємо всі невалідні
+    fieldsToValidate.forEach(fieldObj => {
+        const field = document.getElementById(fieldObj.id);
+        const valid = validateField(field, fieldObj.validator);
+        if (!valid) isValid = false;
+    });
+
+    // Окремо перевіряємо стать
+    if (!validateSex()) isValid = false;
 
     if (isValid) {
         const formData = new FormData(form);
